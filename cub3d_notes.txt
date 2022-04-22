@@ -1,0 +1,15 @@
+cub3d notes:
+
+//////////////////////////////
+
+Rajouter lignes uniquement avec espaces autour de la map.
+Si 1 espace est a proximite d'une case vide = erreur.
+
+//////////////////////////////
+
+- initialize all data to NULL or -1
+- open file
+- copy each line to linked list, even if line is empty
+- close file
+- loop while all info are not NULL (if 1 element = NULL = not yet parsed)
+- once done, it means only map remaining (as map is last in file), parse map
