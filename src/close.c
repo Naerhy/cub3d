@@ -19,6 +19,7 @@ void free_scene(t_scene *scene) // could pass by value but let's optimize a bit
 	free(scene->tex_south);
 	free(scene->tex_east);
 	free(scene->tex_west);
+	free_double_ptr((void **)scene->map);
 }
 
 void free_double_ptr(void **ptr)

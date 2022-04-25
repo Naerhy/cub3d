@@ -1,8 +1,6 @@
 #include "cub3d.h"
 
-// return index of last read line = easier to iterate at the beginning of it
-// for map parsing
-void parse_scene(t_global *global)
+int parse_scene(t_global *global)
 {
 	char **split;
 	int i;
@@ -45,6 +43,7 @@ void parse_scene(t_global *global)
 	}
 	if (!is_scene_parsed(&global->scene))
 		close_program("incomplete scene description", global);
+	return (i);
 }
 
 int get_nb_splits(char **split)
@@ -99,4 +98,93 @@ int is_digits_only(char *str)
 int create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+void parse_map(t_global *global, int index_map)
+{
+	char **map;
+	int begin;
+
+	begin = map_exists(&global->lines[index_map]);
+	if (begin == -1 || empty_line_map(&global->lines[begin])
+			|| check_map_char(&global->lines[begin]))
+		close_program("invalid map description", global);
+	map = ft_calloc(get_map_lines(&global->lines[begin]) + 3, sizeof(char));
+	if (!map)
+		close_program("unable to allocate memory", global);
+
+}
+
+int map_exists(char **lines)
+{
+	int i;
+
+	i = 0;
+	while (lines[i])
+	{
+		if (ft_strlen(lines[i]))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int get_max_line(char **lines)
+{
+	int max;
+
+	max = 0;
+	while (lines[i])
+	{
+		if (ft_strlen(lines[i]) > max)
+			max = ft_strlen(lines[i]);
+		i++;
+	}
+	return (max);
+}
+
+int empty_line_map(char **lines)
+{
+	int i;
+
+	i = 0;
+	while (lines[i])
+	{
+		if (!ft_strlen(lines[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int check_map_char(char **lines)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (lines[i])
+	{
+		j = 0;
+		while (lines[i][j])
+		{
+			if (lines[i][j] != '1' && lines[i][j] != '0' && lines[i][j] != 'N'
+					&& lines[i][j] != 'S' && lines[i][j] != 'E'
+					&& lines[i][j] != 'W')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+int get_map_lines(char **lines)
+{
+	int i;
+
+	i = 0;
+	while (lines[i])
+		i++;
+	return (i);
 }

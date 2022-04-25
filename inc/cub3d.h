@@ -14,6 +14,7 @@ typedef struct s_scene
 	char *tex_west;
 	int color_floor;
 	int color_ceiling;
+	int **map;
 } t_scene;
 
 typedef struct s_global
@@ -47,7 +48,7 @@ void ft_wrstr_nl(int fd, char *str);
 long ft_atoi(char *str);
 
 // parsing.c
-void parse_scene(t_global *global);
+int parse_scene(t_global *global);
 int get_nb_splits(char **split);
 int is_scene_parsed(t_scene *scene);
 int str_to_color(char *str);

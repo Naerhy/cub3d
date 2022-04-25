@@ -8,4 +8,5 @@ void init_scene(t_scene *scene)
 	scene->tex_west = NULL;
 	scene->color_floor = -1;
 	scene->color_ceiling = -1;
+	scene->map = NULL;
 }
