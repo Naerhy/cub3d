@@ -20,8 +20,7 @@ int main(int argc, char **argv)
 		close_program("unable to allocate memory", &global);
 	copy_file(argv[1], &global);
 	index_map = parse_scene(&global);
-	printf("%d\n", index_map);
-	// parse_map(&global, index_map);
+	parse_map(&global, index_map);
 	// if no error, program closes succesfully
 	close_program(NULL, &global);
 	return (0);

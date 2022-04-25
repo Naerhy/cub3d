@@ -55,6 +55,17 @@ int str_to_color(char *str);
 int is_digits_only(char *str);
 int create_trgb(int t, int r, int g, int b);
 
+// parsing_map.c
+void parse_map(t_global *global, int index_map);
+int map_exists(char **lines, int index_map);
+int check_empty_line(char **lines);
+int check_map_char(char **lines);
+int get_nb_lines(char **lines);
+int alloc_lines(int **map, int nb_lines, int max_line);
+int get_max_line(char **lines);
+void fill_map(int **map, int nb_lines, int max_line);
+void copy_map(int **map, char **lines);
+
 // split.c
 char **ft_split(char *str, char delimiter);
 int get_nb_words(char *str, char delimiter);

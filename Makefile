@@ -6,6 +6,7 @@ SRC = src/close.c \
 	  src/init.c \
 	  src/libft.c \
 	  src/parsing.c \
+	  src/parsing_map.c \
 	  src/split.c
 
 OBJ = ${SRC:.c=.o}
