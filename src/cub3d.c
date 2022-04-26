@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-// to delete, for tests only:
-#include <string.h>
-
 int main(int argc, char **argv)
 {
 	t_global global;

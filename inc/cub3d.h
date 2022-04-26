@@ -21,6 +21,8 @@ typedef struct s_global
 {
 	char **lines;
 	t_scene scene;
+	double player_x;
+	double player_y;
 } t_global;
 
 // close.c
@@ -60,6 +62,7 @@ void parse_map(t_global *global, int index_map);
 int map_exists(char **lines, int index_map);
 int check_empty_line(char **lines);
 int check_map_char(char **lines);
+int check_start_pos(char **lines);
 int get_nb_lines(char **lines);
 int alloc_lines(int **map, int nb_lines, int max_line);
 int get_max_line(char **lines);
