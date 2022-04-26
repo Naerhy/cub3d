@@ -23,6 +23,8 @@ typedef struct s_global
 	t_scene scene;
 	double player_x;
 	double player_y;
+	double direction_x;
+	double direction_y;
 } t_global;
 
 // close.c
@@ -62,12 +64,14 @@ void parse_map(t_global *global, int index_map);
 int map_exists(char **lines, int index_map);
 int check_empty_line(char **lines);
 int check_map_char(char **lines);
-int check_start_pos(char **lines);
+int check_start_pos(t_global *global, char **lines);
+void set_player_direction(t_global *global, char direction);
 int get_nb_lines(char **lines);
 int alloc_lines(int **map, int nb_lines, int max_line);
 int get_max_line(char **lines);
 void fill_map(int **map, int nb_lines, int max_line);
 void copy_map(int **map, char **lines);
+int check_map_closed(int **map, int nb_lines, int max_line);
 
 // split.c
 char **ft_split(char *str, char delimiter);
