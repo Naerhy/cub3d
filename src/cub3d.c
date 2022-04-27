@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 	copy_file(argv[1], &global);
 	index_map = parse_scene(&global);
 	parse_map(&global, index_map);
+	global.mlx = mlx_init();
 	// if no error, program closes succesfully
 	close_program(NULL, &global);
 	return (0);

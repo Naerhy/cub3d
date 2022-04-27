@@ -15,17 +15,21 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
+MLXFLAGS = -Lmlx_linux -lmlx -lXext -lX11 -lm
+
 RM = rm -rf
 
 .c.o:
-	${CC} ${CFLAGS} -Iinc -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} -Iinc -Imlx_linux -c $< -o ${<:.c=.o}
 
 ${NAME}: ${OBJ}
-	${CC} -o ${NAME} ${OBJ}
+	make -C mlx_linux
+	${CC} -o ${NAME} ${OBJ} ${MLXFLAGS}
 
 all: ${NAME}
 
 clean:
+	make -C mlx_linux clean
 	${RM} ${OBJ}
 
 fclean: clean

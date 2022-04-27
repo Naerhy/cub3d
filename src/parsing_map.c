@@ -94,8 +94,8 @@ int check_start_pos(t_global *global, char **lines)
 			if (lines[i][j] == 'N' || lines[i][j] == 'S' || lines[i][j] == 'E'
 					|| lines[i][j] == 'W')
 			{
-				global->player_x = j + 1.0;
-				global->player_y = i + 1.0;
+				global->player.pos_x = j + 1.0;
+				global->player.pos_y = i + 1.0;
 				set_player_direction(global, lines[i][j]);
 				lines[i][j] = '0';
 				nb_start++;
@@ -110,13 +110,13 @@ int check_start_pos(t_global *global, char **lines)
 void set_player_direction(t_global *global, char direction)
 {
 	if (direction == 'N')
-		global->direction_y = 1.0;
+		global->player.dir_y = 1.0;
 	else if (direction == 'S')
-		global->direction_y = -1.0;
+		global->player.dir_y = -1.0;
 	else if (direction == 'E')
-		global->direction_x = 1.0;
+		global->player.dir_x = 1.0;
 	else
-		global->direction_x = -1.0;
+		global->player.dir_x = -1.0;
 }
 
 int get_nb_lines(char **lines)

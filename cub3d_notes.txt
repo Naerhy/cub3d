@@ -5,12 +5,8 @@ cub3d notes:
 Rajouter lignes uniquement avec espaces autour de la map
 Si 1 case 0 se trouve a cote d'un espace = error
 	a cote = dans un rayon d'une case autour
-		conditions pour eviter de sortir de l'array lors de la verification
-		sur limites de l'array => ne verifier aue 5 cotes au lieu de 8
 
-faire attention a ce qu'il n'y ait qu'une seule orientation du joueur
-	la remplacer ensuite par 0
-		puis verifier si map est valide uniquement apres
+rajouter conditions pour accepter couleurs uniquement de 0 a 255
 
 //////////////////////////////
 
