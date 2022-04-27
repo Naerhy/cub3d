@@ -2,11 +2,16 @@
 #define __CUB3D__
 
 #include <fcntl.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "mlx.h"
+
+#define WIDTH 1080
+#define HEIGHT 720
+#define TEX_RES 64
 
 typedef struct s_scene
 {
@@ -43,10 +48,14 @@ typedef struct s_global
 	void *mlx;
 	void *window;
 	t_img img;
+	t_img textures[4];
 	char **lines;
 	t_scene scene;
 	t_player player;
 } t_global;
+
+int raycasting(t_global *global);
+void load_textures(t_global *global, char *tex_path, int n, int resolution);
 
 // close.c
 void close_program(char *error_msg, t_global *global);
@@ -59,7 +68,7 @@ void copy_file(char *filename, t_global *global);
 void replace_nl(char *str);
 
 // init.c
-void init_scene(t_scene *scene);
+void init_global(t_global *global);
 
 // libft.c
 int ft_strlen(char *str);
