@@ -22,13 +22,6 @@ void parse_map(t_global *global, int index_map)
 	copy_map(global->scene.map, global->lines + begin);
 	if (!check_map_closed(global->scene.map, nb_lines + 2, max_line + 2))
 		close_program("map is not closed", global);
-
-	for (int i = 0; i < nb_lines + 2; i++)
-	{
-		for (int j = 0; j < max_line + 2; j++)
-			printf("%d", global->scene.map[i][j]);
-		printf("\n");
-	}
 }
 
 int map_exists(char **lines, int index_map)

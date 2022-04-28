@@ -9,7 +9,7 @@
 
 #include "mlx.h"
 
-#define WIDTH 1080
+#define WIDTH 1280
 #define HEIGHT 720
 #define TEX_RES 64
 
@@ -55,6 +55,7 @@ typedef struct s_global
 } t_global;
 
 int raycasting(t_global *global);
+int move_player(int keycode, t_global *global);
 void load_textures(t_global *global, char *tex_path, int n, int resolution);
 
 // close.c

@@ -21,15 +21,13 @@ int main(int argc, char **argv)
 	global.mlx = mlx_init();
 	// check return error
 
-	// REMOVE ONCE RESOLVED:
-	global.player.dir_x = -1;
-
 	load_textures(&global, global.scene.tex_north, 0, TEX_RES);
 	load_textures(&global, global.scene.tex_south, 1, TEX_RES);
 	load_textures(&global, global.scene.tex_east, 2, TEX_RES);
 	load_textures(&global, global.scene.tex_west, 3, TEX_RES);
 
 	global.window = mlx_new_window(global.mlx, WIDTH, HEIGHT, "cub3d");
+	mlx_hook(global.window, 2, 1L<<0, move_player, &global);
 	mlx_loop_hook(global.mlx, raycasting, &global);
 	mlx_loop(global.mlx);
 
@@ -52,8 +50,7 @@ int get_pixel_color(t_img *img, int x, int y)
 {
 	char *color;
 
-	color = img->address + (y * img->line_length + x
-			* (img->bits_per_pixel / 8));
+	color = img->address + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	return (*(int *)color);
 }
 
@@ -61,45 +58,8 @@ void my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char *dst;
 
-	dst = img->address + (y * img->line_length + x
-			* (img->bits_per_pixel / 8));
+	dst = img->address + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
-}
-
-void draw_floor(t_global *global, int color)
-{
-	int x;
-	int y;
-
-	x = 0;
-	while (x < WIDTH)
-	{
-		y = HEIGHT / 2;
-		while (y < HEIGHT)
-		{
-			my_mlx_pixel_put(&global->img, x, y, color);
-			y++;
-		}
-		x++;
-	}
-}
-
-void draw_ceiling(t_global *global, int color)
-{
-	int x;
-	int y;
-
-	x = 0;
-	while (x < WIDTH)
-	{
-		y = 0;
-		while (y < HEIGHT / 2)
-		{
-			my_mlx_pixel_put(&global->img, x, y, color);
-			y++;
-		}
-		x++;
-	}
 }
 
 int raycasting(t_global *global)
@@ -115,17 +75,14 @@ int raycasting(t_global *global)
 			&global->img.bits_per_pixel, &global->img.line_length,
 			&global->img.endian);
 
-	draw_floor(global, global->scene.color_floor);
-	draw_ceiling(global, global->scene.color_ceiling);
-
 	///////////////////////////
-	
+
 	int x;
 
 	x = 0;
 	while (x < WIDTH)
 	{
-		double camerax = 2.0 * x / (double)WIDTH - 1.0;
+		double camerax = 2 * x / (double)WIDTH - 1;
 		double raydirx = global->player.dir_x + global->player.plane_x * camerax;
 		double raydiry = global->player.dir_y + global->player.plane_y * camerax;
 
@@ -236,13 +193,46 @@ int raycasting(t_global *global)
 			}
 			my_mlx_pixel_put(&global->img, x, y, color);
 		}
+
 		x++;
 	}
+	
 
 	///////////////////////////
 
 	mlx_put_image_to_window(global->mlx, global->window, global->img.img, 0, 0);
 	if (old_img)
 		mlx_destroy_image(global->mlx, old_img);
+	return (0);
+}
+
+int move_player(int keycode, t_global *global)
+{
+	double movespeed = 0.3;
+	double rotspeed = 0.2;
+
+	if (keycode == 65361)
+	{
+		double olddirx = global->player.dir_x;
+		global->player.dir_x = global->player.dir_x * cos(rotspeed)
+			- global->player.dir_y * sin(rotspeed);
+		global->player.dir_y = olddirx * sin(rotspeed) + global->player.dir_y
+			* cos(rotspeed);
+		double oldplanex = global->player.plane_x;
+		global->player.plane_x = global->player.plane_x * cos(rotspeed)
+			- global->player.plane_y * sin(rotspeed);
+		global->player.plane_y = oldplanex * sin(rotspeed)
+			+ global->player.plane_y * cos(rotspeed);
+	}
+
+	if (keycode == 122)
+	{
+		if (global->scene.map[(int)(global->player.pos_x + global->player.dir_x * movespeed)]
+				[(int)global->player.pos_y] == 0)
+			global->player.pos_x += global->player.dir_x * movespeed;
+		if (global->scene.map[(int)global->player.pos_x]
+				[(int)(global->player.pos_y + global->player.dir_y * movespeed)] == 0)
+			global->player.pos_y += global->player.dir_y * movespeed;
+	}
 	return (0);
 }
