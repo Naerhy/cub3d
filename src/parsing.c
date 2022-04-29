@@ -65,20 +65,22 @@ int is_scene_parsed(t_scene *scene)
 	return (0);
 }
 
-// optimize this function => better readability
 int str_to_color(char *str)
 {
 	char **split;
-	int color;
+	int colors[3];
 
 	split = ft_split(str, ',');
-	color = -1;
-	if (split && get_nb_splits(split) == 3 && is_digits_only(split[0])
-			&& is_digits_only(split[1]) && is_digits_only(split[2]))
-		color = create_trgb(0, ft_atoi(split[0]), ft_atoi(split[1]),
-				ft_atoi(split[2]));
+	if (!split || get_nb_splits(split) != 3 || !is_digits_only(split[0])
+			|| !is_digits_only(split[1]) || !is_digits_only(split[2]))
+		return (-1);
+	colors[0] = ft_atoi(split[0]);
+	colors[1] = ft_atoi(split[1]);
+	colors[2] = ft_atoi(split[2]);
 	free_double_ptr((void **)split);
-	return (color);
+	if (colors[0] > 255 || colors[1] > 255 || colors[2] > 255)
+		return (-1);
+	return (create_trgb(0, colors[0], colors[1], colors[2]));
 }
 
 int is_digits_only(char *str)
