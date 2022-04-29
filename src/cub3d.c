@@ -18,16 +18,18 @@ int main(int argc, char **argv)
 	index_map = parse_scene(&global);
 	parse_map(&global, index_map);
 
+	// move all these lines into launch_game function?
+	// move all these lines into launch_game function?
 	global.mlx = mlx_init();
-	// check return error
-
+	if (!global.mlx)
+		close_program("unable to initialize MLX library", &global);
 	load_textures(&global, global.scene.tex_north, 0, TEX_RES);
 	load_textures(&global, global.scene.tex_south, 1, TEX_RES);
 	load_textures(&global, global.scene.tex_east, 2, TEX_RES);
 	load_textures(&global, global.scene.tex_west, 3, TEX_RES);
-
 	global.window = mlx_new_window(global.mlx, WIDTH, HEIGHT, "cub3d");
 	mlx_hook(global.window, 2, 1L<<0, move_player, &global);
+	mlx_hook(global.window, 33, 1L << 2, exit_cross_game, &global);
 	mlx_loop_hook(global.mlx, raycasting, &global);
 	mlx_loop(global.mlx);
 
@@ -40,7 +42,8 @@ void load_textures(t_global *global, char *tex_path, int n, int resolution)
 {
 	global->textures[n].img = mlx_xpm_file_to_image(global->mlx, tex_path,
 			&resolution, &resolution);
-	// check return error
+	if (!global->textures[n].img)
+		close_program("unable to convert xpm file", global);
 	global->textures[n].address = mlx_get_data_addr(global->textures[n].img,
 			&global->textures[n].bits_per_pixel,
 			&global->textures[n].line_length, &global->textures[n].endian);
@@ -320,5 +323,11 @@ int move_player(int keycode, t_global *global)
 
 	if (keycode == 65307) // ESC
 		close_program(NULL, global);
+	return (0);
+}
+
+int exit_cross_game(t_global *global)
+{
+	close_program(NULL, global);
 	return (0);
 }

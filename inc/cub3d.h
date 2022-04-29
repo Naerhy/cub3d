@@ -56,6 +56,7 @@ typedef struct s_global
 
 int raycasting(t_global *global);
 int move_player(int keycode, t_global *global);
+int exit_cross_game(t_global *global);
 void load_textures(t_global *global, char *tex_path, int n, int resolution);
 
 // close.c
