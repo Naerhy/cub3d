@@ -250,7 +250,7 @@ int move_player(int keycode, t_global *global)
 	double movespeed = 0.3;
 	double rotspeed = 0.2;
 
-	if (keycode == 65361)
+	if (keycode == 65361) // LEFT
 	{
 		double olddirx = global->player.dir_x;
 		global->player.dir_x = global->player.dir_x * cos(rotspeed)
@@ -264,7 +264,21 @@ int move_player(int keycode, t_global *global)
 			+ global->player.plane_y * cos(rotspeed);
 	}
 
-	if (keycode == 122)
+	if (keycode == 65363) // RIGHT
+	{
+		double olddirx = global->player.dir_x;
+		global->player.dir_x = global->player.dir_x * cos(-rotspeed)
+			- global->player.dir_y * sin(-rotspeed);
+		global->player.dir_y = olddirx * sin(-rotspeed) + global->player.dir_y
+			* cos(-rotspeed);
+		double oldplanex = global->player.plane_x;
+		global->player.plane_x = global->player.plane_x * cos(-rotspeed)
+			- global->player.plane_y * sin(-rotspeed);
+		global->player.plane_y = oldplanex * sin(-rotspeed)
+			+ global->player.plane_y * cos(-rotspeed);
+	}
+
+	if (keycode == 119) // W
 	{
 		if (global->scene.map[(int)(global->player.pos_x + global->player.dir_x * movespeed)]
 				[(int)global->player.pos_y] == 0)
@@ -272,6 +286,36 @@ int move_player(int keycode, t_global *global)
 		if (global->scene.map[(int)global->player.pos_x]
 				[(int)(global->player.pos_y + global->player.dir_y * movespeed)] == 0)
 			global->player.pos_y += global->player.dir_y * movespeed;
+	}
+
+	if (keycode == 115) // S
+	{
+		if (global->scene.map[(int)(global->player.pos_x - global->player.dir_x * movespeed)]
+				[(int)global->player.pos_y] == 0)
+			global->player.pos_x -= global->player.dir_x * movespeed;
+		if (global->scene.map[(int)global->player.pos_x]
+				[(int)(global->player.pos_y - global->player.dir_y * movespeed)] == 0)
+			global->player.pos_y -= global->player.dir_y * movespeed;
+	}
+
+	if (keycode == 97) // A
+	{
+		if (global->scene.map[(int)(global->player.pos_x -global->player.plane_x * movespeed)]
+				[(int)global->player.pos_y] == 0)
+			global->player.pos_x -= global->player.plane_x * movespeed;
+		if (global->scene.map[(int)global->player.pos_x]
+				[(int)(global->player.pos_y - global->player.plane_y * movespeed)] == 0)
+			global->player.pos_y -= global->player.plane_y * movespeed;
+	}
+
+	if (keycode == 100) // D
+	{
+		if (global->scene.map[(int)(global->player.pos_x + global->player.plane_x * movespeed)]
+				[(int)global->player.pos_y] == 0)
+			global->player.pos_x += global->player.plane_x * movespeed;
+		if  (global->scene.map[(int)global->player.pos_x]
+				[(int)(global->player.pos_y + global->player.plane_y * movespeed)] == 0)
+			global->player.pos_y += global->player.plane_y * movespeed;
 	}
 	return (0);
 }
