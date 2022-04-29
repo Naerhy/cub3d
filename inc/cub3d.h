@@ -98,7 +98,7 @@ int check_map_char(char **lines);
 int check_start_pos(t_global *global, char **lines);
 void set_player_direction(t_global *global, char direction);
 int get_nb_lines(char **lines);
-int alloc_lines(int **map, int nb_lines, int max_line);
+int alloc_lines(int **map, int max_line, int nb_lines);
 int get_max_line(char **lines);
 void fill_map(int **map, int nb_lines, int max_line);
 void copy_map(int **map, char **lines);

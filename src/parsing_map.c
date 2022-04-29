@@ -11,12 +11,12 @@ void parse_map(t_global *global, int index_map)
 			|| !check_map_char(global->lines + begin)
 			|| check_start_pos(global, global->lines + begin) != 1)
 		close_program("invalid map description", global);
-	nb_lines = get_nb_lines(global->lines + begin);
-	global->scene.map = ft_calloc(nb_lines + 3, sizeof(int *));
+	max_line = get_max_line(global->lines + begin);
+	global->scene.map = ft_calloc(max_line + 3, sizeof(int *));
 	if (!global->scene.map)
 		close_program("unable to allocate memory", global);
-	max_line = get_max_line(global->lines + begin);
-	if (!alloc_lines(global->scene.map, nb_lines + 2, max_line + 3))
+	nb_lines = get_nb_lines(global->lines + begin);
+	if (!alloc_lines(global->scene.map, max_line + 2, nb_lines + 3))
 		close_program("unable to allocate memory", global);
 	fill_map(global->scene.map, nb_lines + 2, max_line + 2);
 	copy_map(global->scene.map, global->lines + begin);
@@ -122,14 +122,14 @@ int get_nb_lines(char **lines)
 	return (i);
 }
 
-int alloc_lines(int **map, int nb_lines, int max_line)
+int alloc_lines(int **map, int max_line, int nb_lines)
 {
 	int i;
 
 	i = 0;
-	while (i < nb_lines)
+	while (i < max_line)
 	{
-		map[i] = ft_calloc(max_line + 3, sizeof(int));
+		map[i] = ft_calloc(nb_lines, sizeof(int));
 		if (!map[i])
 			return (0);
 		i++;
@@ -159,10 +159,10 @@ void fill_map(int **map, int nb_lines, int max_line)
 	int j;
 
 	i = 0;
-	while (i < nb_lines)
+	while (i < max_line)
 	{
 		j = 0;
-		while (j < max_line)
+		while (j < nb_lines)
 		{
 			map[i][j] = 8;
 			j++;
@@ -183,9 +183,9 @@ void copy_map(int **map, char **lines)
 		while (lines[i][j])
 		{
 			if (lines[i][j] == ' ')
-				map[i + 1][j + 1] =  8;
+				map[j + 1][i + 1] =  8;
 			else
-				map[i + 1][j + 1] = lines[i][j] - 48;
+				map[j + 1][i + 1] = lines[i][j] - 48;
 			j++;
 		}
 		i++;
@@ -198,10 +198,10 @@ int check_map_closed(int **map, int nb_lines, int max_line)
 	int j;
 
 	i = 0;
-	while (i < nb_lines)
+	while (i < max_line)
 	{
 		j = 0;
-		while (j < max_line)
+		while (j < nb_lines)
 		{
 			if (!map[i][j] && (map[i + 1][j] == 8 || map[i - 1][j] == 8
 						|| map[i][j + 1] == 8 || map[i][j - 1] == 8

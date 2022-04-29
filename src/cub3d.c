@@ -62,6 +62,42 @@ void my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void draw_floor(t_global *global)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		y = HEIGHT / 2;
+		while (y < HEIGHT)
+		{
+			my_mlx_pixel_put(&global->img, x, y, global->scene.color_floor);
+			y++;
+		}
+		x++;
+	}
+}
+
+void draw_ceiling(t_global *global)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		y = 0;
+		while (y < HEIGHT / 2)
+		{
+			my_mlx_pixel_put(&global->img, x, y, global->scene.color_ceiling);
+			y++;
+		}
+		x++;
+	}
+}
+
 int raycasting(t_global *global)
 {
 	void *old_img;
@@ -76,6 +112,9 @@ int raycasting(t_global *global)
 			&global->img.endian);
 
 	///////////////////////////
+	
+	draw_floor(global);
+	draw_ceiling(global);
 
 	int x;
 
@@ -196,7 +235,7 @@ int raycasting(t_global *global)
 
 		x++;
 	}
-	
+
 
 	///////////////////////////
 
