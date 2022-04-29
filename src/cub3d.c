@@ -317,5 +317,8 @@ int move_player(int keycode, t_global *global)
 				[(int)(global->player.pos_y + global->player.plane_y * movespeed)] == 0)
 			global->player.pos_y += global->player.plane_y * movespeed;
 	}
+
+	if (keycode == 65307) // ESC
+		close_program(NULL, global);
 	return (0);
 }
