@@ -12,6 +12,8 @@
 #define WIDTH 1280
 #define HEIGHT 720
 #define TEX_RES 64
+#define MOVESPEED 0.3
+#define ROTSPEED 0.2
 
 typedef struct s_scene
 {
@@ -83,6 +85,12 @@ void ft_wrstr(int fd, char *str);
 void ft_wrstr_nl(int fd, char *str);
 long ft_atoi(char *str);
 
+// move.c
+void move_up(t_global *global);
+void move_down(t_global *global);
+void move_left(t_global *global);
+void move_right(t_global *global);
+
 // parsing.c
 int parse_scene(t_global *global);
 int get_nb_splits(char **split);
@@ -104,6 +112,10 @@ int get_max_line(char **lines);
 void fill_map(int **map, int nb_lines, int max_line);
 void copy_map(int **map, char **lines);
 int check_map_closed(int **map, int nb_lines, int max_line);
+
+// rotate.c
+void rotate_left(t_global *global);
+void rotate_right(t_global *global);
 
 // split.c
 char **ft_split(char *str, char delimiter);

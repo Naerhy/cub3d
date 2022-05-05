@@ -5,8 +5,10 @@ SRC = src/close.c \
 	  src/file.c \
 	  src/init.c \
 	  src/libft.c \
+	  src/move.c \
 	  src/parsing.c \
 	  src/parsing_map.c \
+	  src/rotate.c \
 	  src/split.c
 
 OBJ = ${SRC:.c=.o}
