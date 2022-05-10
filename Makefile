@@ -8,6 +8,7 @@ SRC = src/close.c \
 	  src/move.c \
 	  src/parsing.c \
 	  src/parsing_map.c \
+	  src/raycasting.c \
 	  src/rotate.c \
 	  src/split.c
 

@@ -15,6 +15,27 @@
 #define MOVESPEED 0.3
 #define ROTSPEED 0.2
 
+typedef struct s_raycasting
+{
+	double camera_x;
+	double ray_dir_x;
+	double ray_dir_y;
+	int map_x;
+	int map_y;
+	double side_dist_x;
+	double side_dist_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	double perp_wall_dist;
+	int step_x;
+	int step_y;
+	int side;
+	int line_height;
+	int draw_start;
+	int draw_end;
+	int tex_x;
+} t_raycasting;
+
 typedef struct s_scene
 {
 	char *tex_north;
@@ -56,7 +77,12 @@ typedef struct s_global
 	t_player player;
 } t_global;
 
-int raycasting(t_global *global);
+void launch_game(t_global *global);
+void load_textures(t_global *global, char *texpath, int n, int resolution);
+int get_pixel_color(t_img *img, int x, int y);
+void my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void draw_floor(t_global *global);
+void draw_ceiling(t_global *global);
 int move_player(int keycode, t_global *global);
 int exit_cross_game(t_global *global);
 void load_textures(t_global *global, char *tex_path, int n, int resolution);
@@ -112,6 +138,19 @@ int get_max_line(char **lines);
 void fill_map(int **map, int nb_lines, int max_line);
 void copy_map(int **map, char **lines);
 int check_map_closed(int **map, int nb_lines, int max_line);
+
+// raycasting.c
+int raycasting(t_global *g);
+void raycasting_loop(t_global *g, int x);
+void raycasting_init(t_global *g, int x, t_raycasting *rct);
+void calculate_side_dist(t_global *g, t_raycasting *rct);
+void check_ray_hit(t_global *g, t_raycasting *rct);
+void calculate_distance(t_global *g, t_raycasting *rct);
+void calculate_line_height(t_raycasting *rct);
+void calculate_pixels_to_fill(t_raycasting *rct);
+void get_texture_coords(t_global *g, t_raycasting *rct);
+void draw_vertical_stripe(t_global *g, t_raycasting *rct, int x);
+int get_tex_color(t_global *g, t_raycasting *rct, int tex_y);
 
 // rotate.c
 void rotate_left(t_global *global);
