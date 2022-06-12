@@ -12,6 +12,8 @@
 #define WIDTH 1280
 #define HEIGHT 720
 #define TEX_RES 64
+#define MINIMAP_RES 24
+#define MINIMAP_SIZE 9
 #define MOVESPEED 0.3
 #define ROTSPEED 0.2
 
@@ -83,6 +85,8 @@ int get_pixel_color(t_img *img, int x, int y);
 void my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void draw_floor(t_global *global);
 void draw_ceiling(t_global *global);
+void draw_minimap(t_global *g);
+void draw_minimap_rect(t_global *g, int start_x, int start_y, int color);
 int move_player(int keycode, t_global *global);
 int exit_cross_game(t_global *global);
 void load_textures(t_global *global, char *tex_path, int n, int resolution);

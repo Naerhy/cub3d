@@ -20,6 +20,7 @@ int raycasting(t_global *g)
 		raycasting_loop(g, x);
 		x++;
 	}
+	draw_minimap(g);
 	mlx_put_image_to_window(g->mlx, g->window, g->img.img, 0, 0);
 	if (old_img)
 		mlx_destroy_image(g->mlx, old_img);

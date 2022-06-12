@@ -101,6 +101,56 @@ void draw_ceiling(t_global *global)
 	}
 }
 
+void draw_minimap(t_global *g)
+{
+	int start_x;
+	int start_y;
+	int i;
+	int j;
+
+	start_x = (int)g->player.pos_x - 4;
+	start_y = (int)g->player.pos_y - 4;
+	i = 0;
+	while (i < MINIMAP_SIZE)
+	{
+		j = 0;
+		while (j < MINIMAP_SIZE)
+		{
+			if (g->scene.map[start_x + i][start_y + j] == 1)
+				draw_minimap_rect(g, j * MINIMAP_RES, i * MINIMAP_RES,
+						create_trgb(0, 0, 102, 204));
+			else if (g->scene.map[start_x + i][start_y + j] == 8)
+				draw_minimap_rect(g, j * MINIMAP_RES, i * MINIMAP_RES,
+						create_trgb(0, 0, 0, 0));
+			else
+				draw_minimap_rect(g, j * MINIMAP_RES, i * MINIMAP_RES,
+						create_trgb(0, 192, 192, 192));
+			j++;
+		}
+		i++;
+	}
+	draw_minimap_rect(g, 4 * MINIMAP_RES, 4 * MINIMAP_RES,
+			create_trgb(0, 255, 255, 0));
+}
+
+void draw_minimap_rect(t_global *g, int start_x, int start_y, int color)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < MINIMAP_RES)
+	{
+		y = 0;
+		while (y < MINIMAP_RES)
+		{
+			my_mlx_pixel_put(&g->img, start_x + x, start_y + y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
 int move_player(int keycode, t_global *global)
 {
 	if (keycode == 65361) // LEFT

@@ -13,14 +13,14 @@ void parse_map(t_global *global, int index_map)
 		close_program("invalid map description", global);
 	nb_lines = get_nb_lines(global->lines + begin);
 	max_line = get_max_line(global->lines + begin);
-	global->scene.map = ft_calloc(nb_lines + 3, sizeof(int *));
+	global->scene.map = ft_calloc(nb_lines + 9, sizeof(int *));
 	if (!global->scene.map)
 		close_program("unable to allocate memory", global);
-	if (!alloc_lines(global->scene.map, nb_lines + 2, max_line + 3))
+	if (!alloc_lines(global->scene.map, nb_lines + 8, max_line + 9))
 		close_program("unable to allocate memory", global);
-	fill_map(global->scene.map, nb_lines + 2, max_line + 2);
+	fill_map(global->scene.map, nb_lines + 8, max_line + 8);
 	copy_map(global->scene.map, global->lines + begin);
-	if (!check_map_closed(global->scene.map, nb_lines + 2, max_line + 2))
+	if (!check_map_closed(global->scene.map, nb_lines + 8, max_line + 8))
 		close_program("map is not closed", global);
 }
 
@@ -87,8 +87,8 @@ int check_start_pos(t_global *global, char **lines)
 			if (lines[i][j] == 'N' || lines[i][j] == 'S' || lines[i][j] == 'E'
 					|| lines[i][j] == 'W')
 			{
-				global->player.pos_x = i + 1.5;
-				global->player.pos_y = j + 1.5;
+				global->player.pos_x = i + 4.5;
+				global->player.pos_y = j + 4.5;
 				set_player_direction(global, lines[i][j]);
 				lines[i][j] = '0';
 				nb_start++;
@@ -195,9 +195,9 @@ void copy_map(int **map, char **lines)
 		while (lines[i][j])
 		{
 			if (lines[i][j] == ' ')
-				map[i + 1][j + 1] =  8;
+				map[i + 4][j + 4] =  8;
 			else
-				map[i + 1][j + 1] = lines[i][j] - 48;
+				map[i + 4][j + 4] = lines[i][j] - 48;
 			j++;
 		}
 		i++;
