@@ -11,12 +11,12 @@ void parse_map(t_global *global, int index_map)
 			|| !check_map_char(global->lines + begin)
 			|| check_start_pos(global, global->lines + begin) != 1)
 		close_program("invalid map description", global);
+	nb_lines = get_nb_lines(global->lines + begin);
 	max_line = get_max_line(global->lines + begin);
-	global->scene.map = ft_calloc(max_line + 3, sizeof(int *));
+	global->scene.map = ft_calloc(nb_lines + 3, sizeof(int *));
 	if (!global->scene.map)
 		close_program("unable to allocate memory", global);
-	nb_lines = get_nb_lines(global->lines + begin);
-	if (!alloc_lines(global->scene.map, max_line + 2, nb_lines + 3))
+	if (!alloc_lines(global->scene.map, nb_lines + 2, max_line + 3))
 		close_program("unable to allocate memory", global);
 	fill_map(global->scene.map, nb_lines + 2, max_line + 2);
 	copy_map(global->scene.map, global->lines + begin);
@@ -87,9 +87,9 @@ int check_start_pos(t_global *global, char **lines)
 			if (lines[i][j] == 'N' || lines[i][j] == 'S' || lines[i][j] == 'E'
 					|| lines[i][j] == 'W')
 			{
-				global->player.pos_x = j + 1.0;
-				global->player.pos_y = i + 1.0;
-				// set_player_direction(global, lines[i][j]);
+				global->player.pos_x = i + 1.5;
+				global->player.pos_y = j + 1.5;
+				set_player_direction(global, lines[i][j]);
 				lines[i][j] = '0';
 				nb_start++;
 			}
@@ -103,13 +103,25 @@ int check_start_pos(t_global *global, char **lines)
 void set_player_direction(t_global *global, char direction)
 {
 	if (direction == 'N')
-		global->player.dir_y = -1.0;
-	else if (direction == 'S')
-		global->player.dir_y = 1.0;
-	else if (direction == 'E')
+	{
 		global->player.dir_x = -1.0;
-	else
+		global->player.plane_y = 0.66;
+	}
+	else if (direction == 'S')
+	{
 		global->player.dir_x = 1.0;
+		global->player.plane_y = -0.66;
+	}
+	else if (direction == 'E')
+	{
+		global->player.dir_y = 1.0;
+		global->player.plane_x = 0.66;
+	}
+	else
+	{
+		global->player.dir_y = -1.0;
+		global->player.plane_x = -0.66;
+	}
 }
 
 int get_nb_lines(char **lines)
@@ -120,21 +132,6 @@ int get_nb_lines(char **lines)
 	while (lines[i])
 		i++;
 	return (i);
-}
-
-int alloc_lines(int **map, int max_line, int nb_lines)
-{
-	int i;
-
-	i = 0;
-	while (i < max_line)
-	{
-		map[i] = ft_calloc(nb_lines, sizeof(int));
-		if (!map[i])
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 int get_max_line(char **lines)
@@ -153,16 +150,31 @@ int get_max_line(char **lines)
 	return (max);
 }
 
+int alloc_lines(int **map, int nb_lines, int max_line)
+{
+	int i;
+
+	i = 0;
+	while (i < nb_lines)
+	{
+		map[i] = ft_calloc(max_line, sizeof(int));
+		if (!map[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void fill_map(int **map, int nb_lines, int max_line)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (i < max_line)
+	while (i < nb_lines)
 	{
 		j = 0;
-		while (j < nb_lines)
+		while (j < max_line)
 		{
 			map[i][j] = 8;
 			j++;
@@ -183,9 +195,9 @@ void copy_map(int **map, char **lines)
 		while (lines[i][j])
 		{
 			if (lines[i][j] == ' ')
-				map[j + 1][i + 1] =  8;
+				map[i + 1][j + 1] =  8;
 			else
-				map[j + 1][i + 1] = lines[i][j] - 48;
+				map[i + 1][j + 1] = lines[i][j] - 48;
 			j++;
 		}
 		i++;
@@ -198,10 +210,10 @@ int check_map_closed(int **map, int nb_lines, int max_line)
 	int j;
 
 	i = 0;
-	while (i < max_line)
+	while (i < nb_lines)
 	{
 		j = 0;
-		while (j < nb_lines)
+		while (j < max_line)
 		{
 			if (!map[i][j] && (map[i + 1][j] == 8 || map[i - 1][j] == 8
 						|| map[i][j + 1] == 8 || map[i][j - 1] == 8

@@ -13,8 +13,8 @@ void init_global(t_global *global)
 	global->scene.color_floor = -1;
 	global->scene.color_ceiling = -1;
 	global->scene.map = NULL;
-	global->player.dir_x = -1;
+	global->player.dir_x = 0.0;
 	global->player.dir_y = 0.0;
 	global->player.plane_x = 0.0;
-	global->player.plane_y = 0.66;
+	global->player.plane_y = 0.0;
 }

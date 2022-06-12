@@ -48,6 +48,6 @@ void move_right(t_global *global)
 	ipos_y = (int)(global->player.pos_y + global->player.plane_y * MOVESPEED);
 	if (!global->scene.map[ipos_x][(int)global->player.pos_y])
 		global->player.pos_x += global->player.plane_x * MOVESPEED;
-	if  (global->scene.map[(int)global->player.pos_x][ipos_y])
+	if (!global->scene.map[(int)global->player.pos_x][ipos_y])
 		global->player.pos_y += global->player.plane_y * MOVESPEED;
 }
