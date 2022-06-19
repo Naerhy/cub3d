@@ -17,7 +17,8 @@ int file_nb_lines(char *filename)
 		gnl_return = get_next_line(fd, &line);
 		if (gnl_return == -1)
 			return (-1);
-		nb_lines++;
+		if (gnl_return)
+			nb_lines++;
 		free(line);
 	}
 	close(fd);
@@ -41,11 +42,10 @@ void copy_file(char *filename, t_global *global)
 		gnl_return = get_next_line(fd, &line);
 		if (gnl_return == -1)
 			close_program("unable to allocate GNL", global);
-		global->lines[i] = ft_strdup(line, ft_strlen(line));
+		if (gnl_return)
+			global->lines[i] = ft_strdup(line, ft_strlen(line));
 		i++;
 		free(line);
 	}
-	free(global->lines[i - 1]);
-	global->lines[i - 1] = NULL;
 	close(fd);
 }
