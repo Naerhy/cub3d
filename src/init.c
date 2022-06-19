@@ -2,9 +2,17 @@
 
 void init_global(t_global *global)
 {
+	int i;
+
+	i = 0;
 	global->mlx = NULL;
 	global->window = NULL;
 	global->img.img = NULL;
+	while (i < 4)
+	{
+		global->textures[i].img = NULL;
+		i++;
+	}
 	global->lines = NULL;
 	global->scene.tex_north = NULL;
 	global->scene.tex_south = NULL;

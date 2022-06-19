@@ -83,6 +83,7 @@ typedef struct s_global
 // close.c
 void close_program(char *error_msg, t_global *global);
 void free_scene(t_scene *scene);
+void free_mlx(t_global *global);
 void free_double_ptr(void **ptr);
 
 // color.c

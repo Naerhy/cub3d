@@ -4,6 +4,7 @@ void close_program(char *error_msg, t_global *global)
 {
 	free_double_ptr((void **)global->lines);
 	free_scene(&global->scene);
+	free_mlx(global);
 	if (error_msg)
 	{
 		ft_wrstr(2, "Error: ");
@@ -20,6 +21,28 @@ void free_scene(t_scene *scene) // could pass by value but let's optimize a bit
 	free(scene->tex_east);
 	free(scene->tex_west);
 	free_double_ptr((void **)scene->map);
+}
+
+void free_mlx(t_global *global)
+{
+	int i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (global->textures[i].img)
+			mlx_destroy_image(global->mlx, global->textures[i].img);
+		i++;
+	}
+	if (global->img.img)
+		mlx_destroy_image(global->mlx, global->img.img);
+	if (global->window)
+		mlx_destroy_window(global->mlx, global->window);
+	if (global->mlx)
+	{
+		mlx_destroy_display(global->mlx);
+		free(global->mlx);
+	}
 }
 
 void free_double_ptr(void **ptr)

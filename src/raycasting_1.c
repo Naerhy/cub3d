@@ -9,7 +9,6 @@ int raycasting(t_global *g)
 	if (g->img.img)
 		old_img = g->img.img;
 	g->img.img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
-	// check return error
 	g->img.address = mlx_get_data_addr(g->img.img, &g->img.bits_per_pixel,
 			&g->img.line_length, &g->img.endian);
 	draw_floor(g);
