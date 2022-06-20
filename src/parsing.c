@@ -25,14 +25,19 @@ int	parse_scene(t_global *global)
 			split = ft_split(global->lines[i], ' ');
 			if (!split)
 				close_program("invalid split return value", global);
-			if (get_nb_splits(split) == 2)
-				parse_scene_data(global, split);
+			if (get_nb_splits(split) != 2)
+			{
+				free_double_ptr((void **)split);
+				close_program("invalid element", global);
+			}
+			parse_scene_data(global, split);
 			free_double_ptr((void **)split);
+			global->scene.nb_elements++;
 		}
 		i++;
 	}
-	if (!is_scene_parsed(&global->scene))
-		close_program("incomplete scene description", global);
+	if (!is_scene_parsed(&global->scene) || global->scene.nb_elements != 6)
+		close_program("invalid scene description", global);
 	return (i);
 }
 

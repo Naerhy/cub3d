@@ -60,6 +60,7 @@ typedef struct s_scene
 	int		color_floor;
 	int		color_ceiling;
 	int		**map;
+	int		nb_elements;
 }	t_scene;
 
 typedef struct s_player
