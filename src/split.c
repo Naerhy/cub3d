@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 13:22:58 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 14:07:56 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-char **ft_split(char *str, char delimiter)
+char	**ft_split(char *str, char delimiter)
 {
-	char **split;
-	int nb_words;
+	char	**split;
+	int		nb_words;
 
 	nb_words = get_nb_words(str, delimiter);
 	if (!nb_words)
@@ -18,10 +30,10 @@ char **ft_split(char *str, char delimiter)
 	return (split);
 }
 
-int get_nb_words(char *str, char delimiter)
+int	get_nb_words(char *str, char delimiter)
 {
-	int nb_words;
-	int i;
+	int	nb_words;
+	int	i;
 
 	nb_words = 0;
 	if (str[0] && str[0] != delimiter)
@@ -36,11 +48,11 @@ int get_nb_words(char *str, char delimiter)
 	return (nb_words);
 }
 
-char **split_words(char **split, char *str, char delimiter)
+char	**split_words(char **split, char *str, char delimiter)
 {
-	int i;
-	int j;
-	int nb_char;
+	int	i;
+	int	j;
+	int	nb_char;
 
 	i = 0;
 	j = 0;
@@ -65,10 +77,10 @@ char **split_words(char **split, char *str, char delimiter)
 	return (split);
 }
 
-int get_nb_char(char *str, char delimiter)
+int	get_nb_char(char *str, char delimiter)
 {
-	int nb_char;
-	int i;
+	int	nb_char;
+	int	i;
 
 	nb_char = 0;
 	i = 0;
@@ -78,4 +90,14 @@ int get_nb_char(char *str, char delimiter)
 		i++;
 	}
 	return (nb_char);
+}
+
+int	get_nb_splits(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
 }

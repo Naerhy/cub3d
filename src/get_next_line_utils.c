@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 14:00:37 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 14:01:20 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int		cpy_buf(char *buffer, int index, int len)
+int	cpy_buf(char *buffer, int index, int len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (index + i < len)
@@ -13,9 +25,9 @@ int		cpy_buf(char *buffer, int index, int len)
 	return (i);
 }
 
-int		nl_index(char *buffer, int len)
+int	nl_index(char *buffer, int len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < len)

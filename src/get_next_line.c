@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 14:00:20 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 14:01:53 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	clear_buf(char *buffer, int index)
@@ -9,7 +21,7 @@ void	clear_buf(char *buffer, int index)
 	}
 }
 
-int		chk_buf_read(char *buffer, int *p_buf_len, char **line)
+int	chk_buf_read(char *buffer, int *p_buf_len, char **line)
 {
 	if (nl_index(buffer, *p_buf_len) != -1)
 	{
@@ -29,7 +41,7 @@ int		chk_buf_read(char *buffer, int *p_buf_len, char **line)
 	return (0);
 }
 
-int		to_return(char **line, int buf_len)
+int	to_return(char **line, int buf_len)
 {
 	if (buf_len == -1)
 		return (-1);
@@ -38,7 +50,7 @@ int		to_return(char **line, int buf_len)
 	return (0);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	buffer[BUFFER_SIZE];
 	static int	buf_len;

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting_1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 13:55:36 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 13:56:25 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int raycasting(t_global *g)
+int	raycasting(t_global *g)
 {
-	void *old_img;
-	int x;
+	void	*old_img;
+	int		x;
 
 	old_img = NULL;
 	if (g->img.img)
@@ -26,9 +38,9 @@ int raycasting(t_global *g)
 	return (0);
 }
 
-void raycasting_loop(t_global *g, int x)
+void	raycasting_loop(t_global *g, int x)
 {
-	t_raycasting rct;
+	t_raycasting	rct;
 
 	raycasting_init(g, x, &rct);
 	calculate_side_dist(g, &rct);
@@ -40,7 +52,7 @@ void raycasting_loop(t_global *g, int x)
 	draw_vertical_stripe(g, &rct, x);
 }
 
-void raycasting_init(t_global *g, int x, t_raycasting *rct)
+void	raycasting_init(t_global *g, int x, t_raycasting *rct)
 {
 	rct->camera_x = 2 * x / (double)WIDTH - 1;
 	rct->ray_dir_x = g->player.dir_x + g->player.plane_x * rct->camera_x;
@@ -51,7 +63,7 @@ void raycasting_init(t_global *g, int x, t_raycasting *rct)
 	rct->delta_dist_y = fabs(1 / rct->ray_dir_y);
 }
 
-void calculate_side_dist(t_global *g, t_raycasting *rct)
+void	calculate_side_dist(t_global *g, t_raycasting *rct)
 {
 	if (rct->ray_dir_x < 0)
 	{
@@ -77,9 +89,9 @@ void calculate_side_dist(t_global *g, t_raycasting *rct)
 	}
 }
 
-void check_ray_hit(t_global *g, t_raycasting *rct)
+void	check_ray_hit(t_global *g, t_raycasting *rct)
 {
-	int hit;
+	int	hit;
 
 	hit = 0;
 	while (!hit)

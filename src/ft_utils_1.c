@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils_1.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 13:53:36 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 13:54:20 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -10,9 +22,9 @@ int ft_strlen(char *str)
 	return (i);
 }
 
-int ft_strcmp(char *str1, char *str2, int n)
+int	ft_strcmp(char *str1, char *str2, int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n && (str1[i] || str2[i]))
@@ -25,9 +37,9 @@ int ft_strcmp(char *str1, char *str2, int n)
 	return (0);
 }
 
-char *ft_strcpy(char *dest, char *src, int length)
+char	*ft_strcpy(char *dest, char *src, int length)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < length && src[i])
@@ -39,9 +51,9 @@ char *ft_strcpy(char *dest, char *src, int length)
 	return (dest);
 }
 
-char *ft_strdup(char *src, int length)
+char	*ft_strdup(char *src, int length)
 {
-	char *dup;
+	char	*dup;
 
 	dup = ft_calloc(length + 1, sizeof(char));
 	if (!dup)
@@ -50,9 +62,9 @@ char *ft_strdup(char *src, int length)
 	return (dup);
 }
 
-void *ft_calloc(int nb_elem, int size)
+void	*ft_calloc(int nb_elem, int size)
 {
-	void *mem_zone;
+	void	*mem_zone;
 
 	mem_zone = malloc(nb_elem * size);
 	if (!mem_zone)

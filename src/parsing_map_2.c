@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_map_2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 13:58:01 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 13:58:31 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void set_player_direction(t_global *global, char direction)
+void	set_player_direction(t_global *global, char direction)
 {
 	if (direction == 'N')
 	{
@@ -24,9 +36,9 @@ void set_player_direction(t_global *global, char direction)
 	}
 }
 
-int get_nb_lines(char **lines)
+int	get_nb_lines(char **lines)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lines[i])
@@ -34,10 +46,10 @@ int get_nb_lines(char **lines)
 	return (i);
 }
 
-int get_max_line(char **lines)
+int	get_max_line(char **lines)
 {
-	int max;
-	int i;
+	int	max;
+	int	i;
 
 	max = 0;
 	i = 0;
@@ -50,9 +62,9 @@ int get_max_line(char **lines)
 	return (max);
 }
 
-int alloc_lines(int **map, int nb_lines, int max_line)
+int	alloc_lines(int **map, int nb_lines, int max_line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < nb_lines)
@@ -65,10 +77,10 @@ int alloc_lines(int **map, int nb_lines, int max_line)
 	return (1);
 }
 
-void fill_map(int **map, int nb_lines, int max_line)
+void	fill_map(int **map, int nb_lines, int max_line)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < nb_lines)

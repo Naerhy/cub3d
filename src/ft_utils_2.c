@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils_2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 13:54:45 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 13:55:10 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void *ft_memset(void *ptr, int c, int n)
+void	*ft_memset(void *ptr, int c, int n)
 {
-	unsigned char *ptr_c;
-	int i;
+	unsigned char	*ptr_c;
+	int				i;
 
 	ptr_c = (unsigned char *)ptr;
 	i = 0;
@@ -15,21 +27,21 @@ void *ft_memset(void *ptr, int c, int n)
 	return (ptr);
 }
 
-void ft_wrstr(int fd, char *str)
+void	ft_wrstr(int fd, char *str)
 {
 	write(fd, str, ft_strlen(str));
 }
 
-void ft_wrstr_nl(int fd, char *str)
+void	ft_wrstr_nl(int fd, char *str)
 {
 	write(fd, str, ft_strlen(str));
 	write(fd, "\n", 1);
 }
 
-long ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
-	long result;
-	int i;
+	long	result;
+	int		i;
 
 	result = 0;
 	i = 0;

@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 13:26:48 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 13:28:33 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_global global;
-	int index_map;
-	int nb_lines;
+	t_global	global;
+	int			index_map;
+	int			nb_lines;
 
 	init_global(&global);
 	if (argc != 2)
 		close_program("invalid number of arguments", &global);
-	if (ft_strlen(argv[1]) <= 4 ||
-			ft_strcmp(".cub", argv[1] + ft_strlen(argv[1]) - 4, 4))
+	if (ft_strlen(argv[1]) <= 4 || ft_strcmp(".cub", argv[1]
+			+ ft_strlen(argv[1]) - 4, 4))
 		close_program("invalid filename", &global);
 	nb_lines = file_nb_lines(argv[1]) + 1;
 	if (nb_lines == -1)
@@ -26,7 +38,7 @@ int main(int argc, char **argv)
 	return (0);
 }
 
-void launch_game(t_global *global)
+void	launch_game(t_global *global)
 {
 	global->mlx = mlx_init();
 	if (!global->mlx)
@@ -36,13 +48,13 @@ void launch_game(t_global *global)
 	load_textures(global, global->scene.tex_east, 2, TEX_RES);
 	load_textures(global, global->scene.tex_west, 3, TEX_RES);
 	global->window = mlx_new_window(global->mlx, WIDTH, HEIGHT, "cub3d");
-	mlx_hook(global->window, 2, 1L<<0, move_player, global);
+	mlx_hook(global->window, 2, 1L << 0, move_player, global);
 	mlx_hook(global->window, 33, 1L << 2, exit_cross_game, global);
 	mlx_loop_hook(global->mlx, raycasting, global);
 	mlx_loop(global->mlx);
 }
 
-void load_textures(t_global *global, char *tex_path, int n, int resolution)
+void	load_textures(t_global *global, char *tex_path, int n, int resolution)
 {
 	global->textures[n].img = mlx_xpm_file_to_image(global->mlx, tex_path,
 			&resolution, &resolution);
@@ -53,15 +65,15 @@ void load_textures(t_global *global, char *tex_path, int n, int resolution)
 			&global->textures[n].line_length, &global->textures[n].endian);
 }
 
-void my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	dst = img->address + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
-int exit_cross_game(t_global *global)
+int	exit_cross_game(t_global *global)
 {
 	close_program(NULL, global);
 	return (0);

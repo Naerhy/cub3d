@@ -1,21 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 13:24:51 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 13:26:26 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int create_trgb(int t, int r, int g, int b)
+int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-int get_pixel_color(t_img *img, int x, int y)
+int	get_pixel_color(t_img *img, int x, int y)
 {
-	char *color;
+	char	*color;
 
-	color = img->address + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	color = img->address + (y * img->line_length + x
+			* (img->bits_per_pixel / 8));
 	return (*(int *)color);
 }
 
-int get_tex_color(t_global *g, t_raycasting *rct, int tex_y)
+int	get_tex_color(t_global *g, t_raycasting *rct, int tex_y)
 {
-	int color;
+	int	color;
 
 	if (!rct->side)
 	{

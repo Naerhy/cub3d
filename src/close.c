@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   close.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/20 13:28:50 by qduarte           #+#    #+#             */
+/*   Updated: 2022/06/20 13:29:32 by qduarte          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void close_program(char *error_msg, t_global *global)
+void	close_program(char *error_msg, t_global *global)
 {
 	free_double_ptr((void **)global->lines);
 	free_scene(&global->scene);
@@ -14,7 +26,7 @@ void close_program(char *error_msg, t_global *global)
 	exit(EXIT_SUCCESS);
 }
 
-void free_scene(t_scene *scene) // could pass by value but let's optimize a bit
+void	free_scene(t_scene *scene)
 {
 	free(scene->tex_north);
 	free(scene->tex_south);
@@ -23,9 +35,9 @@ void free_scene(t_scene *scene) // could pass by value but let's optimize a bit
 	free_double_ptr((void **)scene->map);
 }
 
-void free_mlx(t_global *global)
+void	free_mlx(t_global *global)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 4)
@@ -45,10 +57,10 @@ void free_mlx(t_global *global)
 	}
 }
 
-void free_double_ptr(void **ptr)
+void	free_double_ptr(void **ptr)
 {
-	char **ptr_c;
-	int i;
+	char	**ptr_c;
+	int		i;
 
 	ptr_c = (char **)ptr;
 	if (ptr_c)
