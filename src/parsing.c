@@ -88,7 +88,8 @@ int	str_to_color(char *str)
 	colors[1] = ft_atoi(split[1]);
 	colors[2] = ft_atoi(split[2]);
 	free_double_ptr((void **)split);
-	if (colors[0] > 255 || colors[1] > 255 || colors[2] > 255)
+	if ((colors[0] > 255 || colors[0] < 0) || (colors[1] > 255 || colors[1] < 0)
+		|| (colors[2] > 255 || colors[2] < 0))
 		return (-1);
 	return (create_trgb(0, colors[0], colors[1], colors[2]));
 }
