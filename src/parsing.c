@@ -83,7 +83,10 @@ int	str_to_color(char *str)
 	split = ft_split(str, ',');
 	if (!split || get_nb_splits(split) != 3 || !is_digits_only(split[0])
 		|| !is_digits_only(split[1]) || !is_digits_only(split[2]))
+	{
+		free_double_ptr((void **)split);
 		return (-1);
+	}
 	colors[0] = ft_atoi(split[0]);
 	colors[1] = ft_atoi(split[1]);
 	colors[2] = ft_atoi(split[2]);
