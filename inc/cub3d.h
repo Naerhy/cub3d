@@ -6,7 +6,7 @@
 /*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:43:59 by qduarte           #+#    #+#             */
-/*   Updated: 2022/06/20 14:07:30 by qduarte          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:20:59 by qduarte          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define TEX_RES 64
 # define MR 24
 # define MINIMAP_SIZE 9
-# define MOVESPEED 0.2
-# define ROTSPEED 0.2
+# define MOVESPEED 0.1
+# define ROTSPEED 0.1
 # define BUFFER_SIZE 64
 
 typedef struct s_raycasting

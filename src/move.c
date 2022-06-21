@@ -6,7 +6,7 @@
 /*   By: qduarte <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 13:00:19 by qduarte           #+#    #+#             */
-/*   Updated: 2022/06/20 13:02:25 by qduarte          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:23:57 by qduarte          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,28 @@ void	move_up(t_global *global)
 
 void	move_down(t_global *global)
 {
-	int	ipos_x;
-	int	ipos_y;
+	int		ipos_x;
+	int		ipos_y;
+	float	temp;
 
 	ipos_x = (int)global->player.pos_x - global->player.dir_x * MOVESPEED;
 	ipos_y = (int)global->player.pos_y - global->player.dir_y * MOVESPEED;
 	if (!global->scene.map[ipos_x][(int)global->player.pos_y])
+	{
+		temp = global->player.pos_x;
 		global->player.pos_x -= global->player.dir_x * MOVESPEED;
+		if (global->scene.map[(int)global->player.pos_x]
+			[(int)global->player.pos_y])
+			global->player.pos_x = temp;
+	}
 	if (!global->scene.map[(int)global->player.pos_x][ipos_y])
+	{
+		temp = global->player.pos_y;
 		global->player.pos_y -= global->player.dir_y * MOVESPEED;
+		if (global->scene.map[(int)global->player.pos_x]
+			[(int)global->player.pos_y])
+			global->player.pos_y = temp;
+	}
 }
 
 void	move_left(t_global *global)
